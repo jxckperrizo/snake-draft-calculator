@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        #picks {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <label for="teams">Number of Teams:</label>
+    <input type="number" id="teams" value="enter">
+
+    <label for="rounds">Rounds:</label>
+    <input type="number" id="rounds" value="enter">
+
+    <label for="position">Your Team Position:</label>
+    <input type="number" id="position" value="enter">
+
+    <button onclick="calculatePicks()">Calculate</button>
+
+    <div id="picks"></div>
+
+    <script>
+        function calculatePicks() {
+            const num_teams = parseInt(document.getElementById("teams").value);
+            const rounds = parseInt(document.getElementById("rounds").value);
+            const my_team_position = parseInt(document.getElementById("position").value);
+            const picks = [];
+
+            for (let round = 1; round <= rounds; round++) {
+                let draft_pick;
+                if (round % 2 === 0) {
+                    draft_pick = (round * num_teams) - my_team_position + 1;
+                } else {
+                    draft_pick = ((round - 1) * num_teams) + my_team_position;
+                }
+                picks.push(draft_pick);
+            }
+
+            document.getElementById("picks").innerText = `Your Draft Picks: ${picks.join(", ")}`;
+        }
+    </script>
+</body>
+</html>
